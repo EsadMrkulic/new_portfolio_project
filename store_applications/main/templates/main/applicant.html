@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+
+{% block title %}Apply{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Become an Applicant Today!</h1>
+        <div class="card">
+            <div style="padding: 10px;">
+                {% if submitted %}
+                    You are now eligable to apply for a position!
+                    Click <a href="/apply">here</a> to apply now.
+
+                {% else %}
+                    <form method="POST", action="", enctype="multipart/form-data",  class="form-group">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit", name="save", class="btn btn-primary">Submit</button>
+                        <p style="padding: 10px;" ><em>Already an applicant? Click <a href="/apply">here</a> to apply now.</em></p>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <script>
+            var name = "{{ user.id }}";
+            document.getElementById("user").value = name;
+        </script>
+    {% else %}
+        <p>You must be logged in to view this page. Click <a href="/login">here</a> to login in.</p>
+    {% endif %}
+{% endblock %}

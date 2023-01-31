@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% block title %}Apply{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Submit your application here!</h1>
+        <div class="card">
+            <div style="padding: 10px;">
+                {% if submitted %}
+                    Your application was submitted successfully!
+
+                    {% if application.resume %}
+                        {{ application.resume.url }}
+                    {% endif %}
+
+                    {% if application.cover_letter %}
+                        {{ application.cover_letter.url }}
+                    {% endif %}
+                {% else %}
+                    <form method="POST", action="", enctype="multipart/form-data" class="form-group">
+                        {% csrf_token %}
+                        <div>
+                            {{form.as_p}}
+                            <button type="submit", class="btn btn-primary", name="save">Submit</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+    {% else %}
+        <p>You must be logged in to view this page. Click <a href="/login">here</a> to login in.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block title %}Positions{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1><em>Positions</em></h1>
+            {% for pos in positions %}    
+            <div style="width: 30rem;">
+                <div class="card-body">
+                    <h2 class="card-title">{{ pos }}</h2>
+                    <hr class="mt-0 mb-4">
+                    <ul>
+                        <li class="list-group-item"><div class="popout">Job Description:</div> {{ pos.job_description }}</li>
+                        <li class="list-group-item"><div class="popout">Job Requirements:</div> {{ pos.requirements }}</li>
+                        <li class="list-group-item"><div class="popout">Hourly Pay:</div> ${{ pos.pay }} per hour.</li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+    {% else %}
+            <p>You must be logged in to view this page. Click <a href="/login">here</a> to login in.</p>
+    {% endif %}
+{% endblock %}
+
+

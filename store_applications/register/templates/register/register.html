@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+
+{% block title %}<h1>Create Account!</h1>{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if submitted %}
+        You have succesfully registered, and now have access to to become an applicant and apply for a position!
+
+    {% else %}
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form> 
+    {% endif %}
+{% endblock %}

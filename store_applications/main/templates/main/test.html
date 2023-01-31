@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% block title %}Apply{% endblock %}
+
+{% block content %}
+    <h1>Test!</h1>
+    {% if submitted %}
+        Test!
+        {% if test.resume %}
+            {{ test.resume.url }}
+        {% endif %}
+
+    {% else %}
+        <form method="POST", action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit", name="save">Submit</button>
+        </form>
+        
+    {% endif %}
+{% endblock %}
