@@ -6,24 +6,25 @@ from .forms import ApplicationSubmission, ApplicantSignUp, Test
 # Create your views here.
 
 
+# This is the main page function
 def home(request):
     return render(request, "main/home.html", {})
 
 
+# Function that takes you to the job position page
 def all_positions(request):
     positions = Position.objects.all()
     return render(request, "main/positions.html", {"positions": positions})
 
 
-'''def positions(response, job_title):
+"""def positions(response, job_title):
     pos = Position.objects.get(job_title=job_title)
     #return HttpResponse("<h1>%s</h1>" % pos.job_description)
-    return render(response, "main/positions.html", {"pos": pos})'''
+    return render(response, "main/positions.html", {"pos": pos})"""
 
 
-
-'''def application(response):
-    return HttpResponse("<h1>Apply for a position using the application below!</h1>")'''
+"""def application(response):
+    return HttpResponse("<h1>Apply for a position using the application below!</h1>")"""
 
 
 def submitapp(request):
@@ -40,7 +41,10 @@ def submitapp(request):
         form = ApplicationSubmission()
         if "submitted" in request.GET:
             submitted = True
-        return render(request, "main/apply.html", {"form": form, "submitted": submitted})
+        return render(
+            request, "main/apply.html", {"form": form, "submitted": submitted}
+        )
+
 
 def applicant(request):
     submitted = False
@@ -49,14 +53,17 @@ def applicant(request):
         print(form)
         if form.is_valid():
             form.save()
-            
+
         return HttpResponseRedirect("/applicant?submitted=True")
 
     else:
         form = ApplicantSignUp()
         if "submitted" in request.GET:
             submitted = True
-        return render(request, "main/applicant.html", {"form": form, "submitted": submitted})
+        return render(
+            request, "main/applicant.html", {"form": form, "submitted": submitted}
+        )
+
 
 def test(request):
     submitted = False

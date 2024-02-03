@@ -9,6 +9,7 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
+            print(form)
             form.save()
             return HttpResponseRedirect("/register?submitted=True")
     else:
